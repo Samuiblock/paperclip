@@ -1,3 +1,2 @@
 #!/bin/bash
-# Paperclip exports for Umbrel
-APP_PAPERCLIP_PORT=3100
+export APP_PAPERCLIP_PORT="${APP_PORT}"
