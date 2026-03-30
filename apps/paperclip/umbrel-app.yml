@@ -2,7 +2,6 @@ manifestVersion: 1
 id: paperclip
 name: Paperclip
 tagline: The control plane for AI agents
-icon: https://paperclip.ing/favicon.ico
 category: ai
 version: "2026.325.0"
 port: 3100
@@ -11,15 +10,13 @@ description: >-
   It works with OpenClaw, Claude Code, Codex, Cursor, Bash, and HTTP-based agents.
 developer: Paperclip
 website: https://paperclip.ing
-submitter: Tim
-submission: https://github.com/Samuiblock/paperclip
+dependencies: []
 repo: https://github.com/paperclipai/paperclip
 support: https://github.com/paperclipai/paperclip/issues
-gallery:
-  - https://paperclip.ing/og-image.png
-releaseNotes: >-
-  Community Umbrel package for Paperclip with persistent storage and Postgres.
-dependencies: []
+gallery: []
+releaseNotes: ""
 path: ""
 defaultUsername: ""
 defaultPassword: ""
+submitter: Tim
+submission: https://github.com/Samuiblock/paperclip
