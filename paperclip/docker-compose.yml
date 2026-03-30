@@ -1,16 +1,46 @@
+version: "3.7"
+
 services:
-  paperclip:
-    image: node:22-alpine
-    container_name: paperclip_paperclip_1
+  db:
+    image: postgres:17-alpine
+    container_name: ${APP_ID}_db_1
     restart: unless-stopped
-    entrypoint: []
-    command: >
-      sh -c "npm install -g paperclipai@latest && paperclipai run"
     environment:
-      - NODE_ENV=production
-      - PAPERCLIP_PORT=3100
-      - PAPERCLIP_HOST=0.0.0.0
+      POSTGRES_USER: paperclip
+      POSTGRES_PASSWORD: paperclip
+      POSTGRES_DB: paperclip
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U paperclip -d paperclip"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
     volumes:
-      - ${APP_DATA_DIR}/data:/data
+      - ${APP_DATA_DIR}/postgres:/var/lib/postgresql/data
+
+  server:
+    image: ghcr.io/paperclipai/paperclip:latest
+    container_name: ${APP_ID}_server_1
+    restart: unless-stopped
+    depends_on:
+      db:
+        condition: service_healthy
+    environment:
+      DATABASE_URL: postgres://paperclip:paperclip@db:5432/paperclip
+      PORT: "3100"
+      HOST: "0.0.0.0"
+      SERVE_UI: "true"
+      PAPERCLIP_HOME: "/paperclip"
+      PAPERCLIP_DEPLOYMENT_MODE: "authenticated"
+      PAPERCLIP_DEPLOYMENT_EXPOSURE: "private"
+      PAPERCLIP_PUBLIC_URL: "http://${APP_HOST}:${APP_PORT}"
+      BETTER_AUTH_SECRET_FILE: "/run/secrets/better_auth_secret"
+    volumes:
+      - ${APP_DATA_DIR}/paperclip:/paperclip
     ports:
       - "${APP_PORT}:3100"
+    secrets:
+      - better_auth_secret
+
+secrets:
+  better_auth_secret:
+    file: ${APP_DATA_DIR}/secrets/BETTER_AUTH_SECRET
