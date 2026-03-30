@@ -1,0 +1,25 @@
+version: "3.8"
+
+services:
+  paperclip:
+    image: node:22-alpine
+    container_name: paperclip
+    restart: unless-stopped
+    command: >
+      sh -c "npm install -g paperclipai@latest &&
+             paperclipai run"
+    environment:
+      - NODE_ENV=production
+      - PAPERCLIP_DATA_DIR=/data
+      - PAPERCLIP_PORT=3100
+      - PAPERCLIP_HOST=0.0.0.0
+    volumes:
+      - ${APP_DATA_DIR}/data:/data
+    ports:
+      - "${APP_PORT}:3100"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3100/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s

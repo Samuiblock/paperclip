@@ -1,0 +1,26 @@
+manifestVersion: 1
+id: paperclip
+name: Paperclip
+tagline: The control plane for AI agents
+icon: https://paperclipai.net/favicon.ico
+category: ai
+version: "2026.325.0"
+port: 3100
+description: >-
+  Paperclip is an open-source AI agent orchestration platform. Hire AI
+  employees, set goals, automate jobs, and let your business run itself.
+  Supports multiple companies, full audit logs, cost control, and works
+  with any agent (Claude, Codex, OpenClaw, Cursor, and more).
+developer: Paperclip
+website: https://paperclipai.net
+submitter: Tim
+submission: https://github.com/getumbrel/umbrel-apps
+repo: https://github.com/paperclipai/paperclip
+support: https://paperclipai.net
+gallery:
+  - https://paperclipai.net/og-image.png
+releaseNotes: Initial Umbrel packaging.
+dependencies: []
+path: ""
+defaultUsername: ""
+defaultPassword: ""
